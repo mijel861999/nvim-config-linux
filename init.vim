@@ -10,6 +10,9 @@ set relativenumber
 
 call plug#begin('~/.vim/plugged')
 
+" Format
+Plug 'maksimr/vim-jsbeautify'
+
 "Temas
 Plug 'sainnhe/gruvbox-material'
 
@@ -258,5 +261,20 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 "
 "--------------------------------------------------------------------
 " COC CONFIG
+"
+"
+
+
+" Blur background
+highlight Normal guibg=none
+highlight NonText guibg=none
+
+
+" Config tab
+nnoremap <tab> :bNext <CR>
+vnoremap <tab> :bNext <CR>
+
+nnoremap <S-tab> :bprevious <CR>
+nnoremap <S-tab> :bprevious <CR>
 
 
