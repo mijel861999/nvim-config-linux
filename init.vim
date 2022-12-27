@@ -1,4 +1,5 @@
 set number
+set omnifunc=htmlcomplete#CompleteTags
 set tabstop=2
 set shiftwidth=2
 set mouse=a
@@ -12,6 +13,10 @@ call plug#begin('~/.vim/plugged')
 
 " Format
 Plug 'maksimr/vim-jsbeautify'
+
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install --frozen-lockfile --production',
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html'] }
 
 "Temas
 Plug 'sainnhe/gruvbox-material'
@@ -28,6 +33,12 @@ Plug 'maxmellon/vim-jsx-pretty'
 
 " NERD TREE
 Plug 'preservim/nerdtree'
+
+" Autocompletar tagas
+Plug 'alvan/vim-closetag'
+
+" Moverte x timux
+Plug 'benmills/vimux'
 
 " SNIPETS para javascript
 Plug 'SirVer/ultisnips'
@@ -52,7 +63,14 @@ Plug 'ryanoasis/vim-devicons'
 " Brackets
 Plug 'jiangmiao/auto-pairs'
 
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+
 call plug#end()
+
+
+" Permite autocompletar etiquetas en react
+let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.php, *.jsx"
 
 " GRUVBOX configuration
 
@@ -65,6 +83,7 @@ colorscheme gruvbox-material
 ""LSP configuration
 
 lua << EOF
+require("nvim-autopairs").setup {}
 require'lspconfig'.tsserver.setup{on_attach=require'completion'.on_attach}
 EOF
 
@@ -107,6 +126,7 @@ nnoremap <silent> <F3> :NERDTreeToggle<CR>
 "
 
 " Some servers have issues with backup files, see #649.
+set hidden
 set nobackup
 set nowritebackup
 
@@ -271,10 +291,21 @@ highlight NonText guibg=none
 
 
 " Config tab
-nnoremap <tab> :bNext <CR>
-vnoremap <tab> :bNext <CR>
+nnoremap <tab> :bnext <CR>
+vnoremap <tab> :bnext <CR>
 
 nnoremap <S-tab> :bprevious <CR>
 nnoremap <S-tab> :bprevious <CR>
 
+" Config search files
+nnoremap <silent> <F4> :Files<CR>
+
+
+
+" hi Normal guibg=NONE ctermbg=NONE
+" hi NonText ctermbg=none
+" hi Normal guibg=NONE ctermbg=NONE
+"
+"
+"Autocomplete HTML tags
 
