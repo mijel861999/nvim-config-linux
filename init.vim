@@ -8,68 +8,26 @@ set showcmd
 set encoding=utf-8
 set showmatch
 set relativenumber
+set hidden
+set nobackup
+set nowritebackup
 
-call plug#begin('~/.vim/plugged')
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
 
-" Format
-Plug 'maksimr/vim-jsbeautify'
-
-Plug 'prettier/vim-prettier', {
-  \ 'do': 'yarn install --frozen-lockfile --production',
-  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html'] }
-
-"Temas
-Plug 'sainnhe/gruvbox-material'
-
-"LSP
-Plug 'neovim/nvim-lspconfig'
-
-Plug 'nvim-lua/completion-nvim'
-Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
-
-" Plugins para javascript
-Plug 'pangloss/vim-javascript'
-Plug 'maxmellon/vim-jsx-pretty'
-
-" NERD TREE
-Plug 'preservim/nerdtree'
-
-" Autocompletar tagas
-Plug 'alvan/vim-closetag'
-
-" Moverte x timux
-Plug 'benmills/vimux'
-
-" SNIPETS para javascript
-Plug 'SirVer/ultisnips'
-Plug 'mlaursen/vim-react-snippets'
-
-" HTML - EMMET
-Plug 'mattn/emmet-vim'
-
-" COMENTARIOS
-Plug 'tpope/vim-commentary'
-
-"IDENTACIÓN
-Plug 'Yggdroot/indentLine'
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+set signcolumn=yes
 
 
-"ESTADO DEL ARCHIVO
-Plug 'vim-airline/vim-airline'
 
-" ICONOS
-Plug 'ryanoasis/vim-devicons'
+"--------------------------------------
+" Imports
+runtime ./plug.vim
+runtime ./keybinding.vim
 
-" Brackets
-Plug 'jiangmiao/auto-pairs'
-
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
-
-call plug#end()
-
-
-" Permite autocompletar etiquetas en react
+"Permite autocompletar etiquetas en react
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.php, *.jsx"
 
 " GRUVBOX configuration
@@ -106,38 +64,17 @@ command! -nargs=0 Prettier :CocCommand prettier.formatFile
 nnoremap <C-D> :Prettier<CR>
 
 
-"COMENTARIOS configuration
-nnoremap <space>/ :Commentary<CR>
-vnoremap <space>/ :Commentary<CR>
-
-
 " CONFIURATION AIRLINE
 let g:airline#extensions#tabline#enabled = 1
 
 " CONFIUGRATION NERDTREE
 let NERDTreeQuitOnOpen=1
-nnoremap <silent> <F2> :NERDTreeFind<CR>
-nnoremap <silent> <F3> :NERDTreeToggle<CR>
-
-
 "
 "------------------------------------------
 " COC CONFIG
 "
 
 " Some servers have issues with backup files, see #649.
-set hidden
-set nobackup
-set nowritebackup
-
-" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
-" delays and poor user experience.
-set updatetime=300
-
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved.
-set signcolumn=yes
-
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: There's always complete item selected by default, you may want to enable
 " no select by `"suggest.noselect": true` in your configuration file.
@@ -258,54 +195,4 @@ command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.org
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
-" Mappings for CoCList
-" Show all diagnostics.
-nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions.
-nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
-" Show commands.
-nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document.
-nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols.
-nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list.
-nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
-
-
-"
-"--------------------------------------------------------------------
-" COC CONFIG
-"
-"
-
-
-" Blur background
-highlight Normal guibg=none
-highlight NonText guibg=none
-
-
-" Config tab
-nnoremap <tab> :bnext <CR>
-vnoremap <tab> :bnext <CR>
-
-nnoremap <S-tab> :bprevious <CR>
-nnoremap <S-tab> :bprevious <CR>
-
-" Config search files
-nnoremap <silent> <F4> :Files<CR>
-
-
-
-" hi Normal guibg=NONE ctermbg=NONE
-" hi NonText ctermbg=none
-" hi Normal guibg=NONE ctermbg=NONE
-"
-"
-"Autocomplete HTML tags
 
